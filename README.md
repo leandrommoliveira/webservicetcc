@@ -1,16 +1,13 @@
-# RestBeer
-
-
 #### Preparar Ambiente
 
 Criar um vhost (exemplo apache):
 
   <VirtualHost *:80>
   
-      ServerName "restbeer.local"
-      DocumentRoot "/caminho_do_projeto/restBeer/"
+      ServerName "webservicetcc.local"
+      DocumentRoot "/webservicetcc/"
     
-      <Directory "/caminho_do_projeto/restBeer">
+      <Directory "/caminho_do_projeto/webservicetcc">
           Options -Indexes FollowSymLinks
           AllowOverride All
           Order Allow,Deny
@@ -22,17 +19,14 @@ Criar um vhost (exemplo apache):
           RewriteRule . index.php [L] 
     </Directory>        
         
-      CustomLog /caminho_dos_logs/restbeer-access_log combined
-      ErrorLog /caminho_dos_logs/restbeer-error_log
   </VirtualHost>
 
 Criar o host na sua máquina:
 
-	127.0.0.1 restbeer.local
+	127.0.0.1 webservicetcc.local
 
 Instalar o composer.phar: 
 
-<https://getcomposer.org/doc/00-intro.md#downloading-the-composer-executable>
 
 	$ curl -sS https://getcomposer.org/installer | php
 
@@ -48,11 +42,3 @@ Utilizamos composer para carregar os projetos que vamos usar
 #### Install
 
 * Rodar o php composer.phar install no diretório do projeto
-* Criar o arquivo index.php e rotas OU baixar do github
-
-#### Refs
-
-* Ver palestra <http://www.slideshare.net/ivanrosolen/restbeer>
-* Manual Respect/Rest em português <http://www.cssexperts.net/respect-rest-docs-br/>
-* Mais docs <http://respect.li/>
-* Inpirado na palestra <https://github.com/eminetto/restbeer>
