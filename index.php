@@ -24,7 +24,7 @@ function valida(){
    		header('HTTP/1.1 403 Forbidden');
    		return false;
    }
- 	return $this->authChave();
+ 	return authChave();
 }
 
 function authChave(){
@@ -34,7 +34,6 @@ function authChave(){
 		
    		return false;
 	}
-
 	return true;
 }
 
@@ -52,5 +51,6 @@ $router->get('/hello', function() {
 
 $router->any('/aluno/*/*', 'Aluno')->by('authChave');
 
-$router->any('/notas/', 'Notas')->by('valida');
+$router->any('/notas/*', 'Notas')->by('valida');
 
+$router->any('/faltas/*', 'Faltas')->by('valida');

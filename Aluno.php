@@ -49,9 +49,8 @@ class Aluno implements Routable {
 
     try{
       $db = new Db(new Pdo('mysql:host=localhost;dbname=trabalho', 'root', 'leandro'));
+      if(!$alunos = $db->select('nome, id')->from('alunos')->where(array('id'=>$user, 'senha'=>$pass))->fetchAll()){
 
-      if(!$alunos = $db->select('NOME, RA')->from('ALUNOS')->where(array('RA'=>$user, 'SENHA'=>$pass))->fetchAll()){
-        //TODO criar uma exception para ser capturada aki!
         header('HTTP/1.1 403 Forbidden');
         return false;
       }
@@ -62,7 +61,7 @@ class Aluno implements Routable {
         return false;
       }
 
-    $_SESSION['username'] = $alunos[0]->NOME;
+    $_SESSION['username'] = $alunos[0]->nome;
 
     header('HTTP/1.1 200 Ok');
     http_response_code(200);

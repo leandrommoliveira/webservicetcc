@@ -35,9 +35,7 @@ Instalar o composer.phar:
 Utilizamos composer para carregar os projetos que vamos usar
 
 * [Respect/Rest](http://github.com/Respect/Rest)
-* [Respect/Validation](http://github.com/Respect/Validation)
 * [Respect/Relational](http://github.com/Respect/Relational)
-* [Respect/Config](http://github.com/Respect/Config)
 
 #### Install
 
