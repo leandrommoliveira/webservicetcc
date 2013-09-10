@@ -1,75 +1,42 @@
-
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
+namespace TCC\Routes;
 
-require_once 'vendor/autoload.php';
-use Respect\Rest\Router;
 use Respect\Rest\Routable;
-
-// utilizado para conexao com banco
-use Respect\Relational\Mapper;
 use Respect\Relational\Db;
-use Respect\Config\Container;
-use Respect\Validation\Validator as v;
 
-use Respect\Data\Collections\Collection;
+class Aluno implements Routable
+{
+    public function get() {}
 
-class Aluno implements Routable {
+    public function post()
+    {
+        $user = $_POST['ra'];
+        $pass = $_POST['senha'];
 
-    public function get(){}
+        try{
+            $pdo = new \Pdo('mysql:host=localhost;dbname=trabalho', 'root', 'leandro');
+            $db = new Db($pdo);
+            $select = $db->select('nome, id')
+                         ->from('alunos')
+                         ->where(array('id' => $user, 'senha' => $pass));
 
-    public function post(){
+            $alunos = $select->fetchAll();
+            if(!$alunos){
+                throw new \Exception('Aluno não foi encontrado');
+            }
+        } catch(\Exception $e){
+            header('HTTP/1.1 403 Forbidden');
+            return false;
+        }
 
-    $assoc = false;
-    $depth = 512;
-    $options = 0;
+        $_SESSION['username'] = $alunos[0]->nome;
 
-    //Pega os valores do POST
-    $request_body = @file_get_contents('php://input');
-  
-    $request_body = utf8_encode($request_body);
+        header('HTTP/1.1 200 Ok');
+        return json_encode($alunos,true);
+    }
 
-    $request_body = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $request_body); 
+    public function put() {}
 
-    if(version_compare(phpversion(), '5.4.0', '>=')) { 
-        $request_body = json_decode($request_body, $assoc, $depth, $options); 
-    } 
-    elseif(version_compare(phpversion(), '5.3.0', '>=')) { 
-        $request_body = json_decode($request_body, $assoc, $depth); 
-    } 
-    else { 
-        $request_body = json_decode($request_body, $assoc); 
-    } 
-
-    $user = $request_body->ra;
-    $pass = $request_body->senha;
-  
-
-    try{
-      $db = new Db(new Pdo('mysql:host=localhost;dbname=trabalho', 'root', 'leandro'));
-      if(!$alunos = $db->select('nome, id')->from('alunos')->where(array('id'=>$user, 'senha'=>$pass))->fetchAll()){
-
-        header('HTTP/1.1 403 Forbidden');
-        return false;
-      }
-      
-      }
-      catch(Exception $e){
-        header('HTTP/1.1 403 Forbidden');
-        return false;
-      }
-
-    $_SESSION['username'] = $alunos[0]->nome;
-
-    header('HTTP/1.1 200 Ok');
-    http_response_code(200);
-    return json_encode($alunos,true);
-
-  }
-
-    public function put(){}
-
-    public function delete(){}
+    public function delete() {}
 }
