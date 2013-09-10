@@ -18,9 +18,9 @@ use Respect\Data\Collections\Collection;
 
 class Aluno implements Routable {
 
-	public function get(){}
+    public function get(){}
 
-	public function post(){
+    public function post(){
 
     $assoc = false;
     $depth = 512;
@@ -69,7 +69,7 @@ class Aluno implements Routable {
 
   }
 
-	public function put(){}
+    public function put(){}
 
-	public function delete(){}
+    public function delete(){}
 }
