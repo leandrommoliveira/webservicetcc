@@ -2,14 +2,21 @@
     "name": "Webservice/Tcc",
     "authors": [
         {
-          "name": "Leandro Motta M. Oliveira",
-          "email": "leandrommoliveira@gmail.com"
+            "name": "Leandro Motta M. Oliveira",
+            "email": "leandrommoliveira@gmail.com"
+        },
+        {
+            "name": "Pedro Fornaza",
+            "email": "pedro.fornaza@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "TCC": "src/"
+        }
+    },
     "require": {
-      "respect/rest": "0.5.x",
-      "respect/relational": "0.5.x",
-      "respect/config": "0.3.x",
-      "respect/validation": "0.4.x"
+        "respect/rest": "*",
+        "respect/relational": "*",
     }
 }
